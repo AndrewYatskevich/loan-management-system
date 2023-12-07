@@ -1,0 +1,30 @@
+version: "3.8"
+name: loan-management-system
+
+services:
+  postgres-db:
+    image: postgres:15.4-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+
+  loan-management-system:
+    build: .
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ./loan_management_system:/code
+    environment:
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres-db:
