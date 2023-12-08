@@ -52,6 +52,9 @@ class Contract(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Contract(loan_application={self.loan_application})"
+
 
 class LoanApplicationProduct(models.Model):
     loan_application = models.ForeignKey(
